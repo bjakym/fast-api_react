@@ -65,7 +65,7 @@ const App = () => {
         items={currencies}
         className="h-screen overflow-scroll"
       />
-      <div className="mx-auto my-auto">
+      <div className="mx-auto my-auto shadow-lg rounded-lg">
         { currencyData ? <CryptocurrencyCard currency={currencyData} /> : <Spin size="large" /> }
       </div>
     </div>
