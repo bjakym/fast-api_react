@@ -1,34 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Menu, Spin } from 'antd';
+import { Spin } from 'antd';
+import LeftMenu from './components/LeftMenu.jsx';
 import CryptocurrencyCard from './components/CryptocurrencyCard.jsx';
 
 const App = () => {
-
-  const [currencies, setCurrencies] = useState([]);
   const [currencyId, setCurrencyId] = useState(1);
   const [currencyData, setCurrencyData] = useState(null);
-
-  const fetchCurrencies = () => {
-    axios.get('http://localhost:8000/currencies/')
-      .then(response => {
-        const currenciesResponse = response.data;
-        const menuItems = [{
-          key: 'crypto-group',
-          label: 'Cryptocurrencies List',
-          type: 'group',
-          children: currenciesResponse.map(currency => ({
-            key: currency.id,
-            label: currency.name,
-          }))
-        }];
-        setCurrencies(menuItems);
-      })
-      .catch(error => {
-        console.error('Error fetching currencies:', error);
-        setCurrencies([]);
-      });
-  }
 
   const fetchCurrency = (id) => {
     axios.get(`http://localhost:8000/currencies/${id}`)
@@ -43,28 +21,17 @@ const App = () => {
   }
 
   useEffect(() => {
-    fetchCurrencies();
-  }, []);
-
-  useEffect(() => {
     setCurrencyData(null);
     fetchCurrency(currencyId);
   }, [currencyId]);
 
-  const onClick = e => {
-    setCurrencyId(e.key);
+  const handleCurrencySelect = (id) => {
+    setCurrencyId(id);
   };
+
   return (
     <div className="flex">
-      <Menu
-        onClick={onClick}
-        style={{ width: 256 }}
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['crypto-group']}
-        mode="inline"
-        items={currencies}
-        className="h-screen overflow-scroll"
-      />
+      <LeftMenu onCurrencySelect={handleCurrencySelect} />
       <div className="mx-auto my-auto shadow-lg rounded-lg">
         { currencyData ? <CryptocurrencyCard currency={currencyData} /> : <Spin size="large" /> }
       </div>
