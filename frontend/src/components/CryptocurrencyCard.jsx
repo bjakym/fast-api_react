@@ -22,30 +22,32 @@ function CryptocurrencyCard(props) {
 
   return (
     // Add shadow for the card
-    <Card 
-      title={
-        <div className="flex items-center gap-x-3">
-          <div className="w-10 h-10">
-            <img src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${currency.id}.png`}/>
+    <div className="shadow-lg rounded-lg">
+      <Card 
+        title={
+          <div className="flex items-center gap-x-3">
+            <div className="w-10">
+              <img src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${currency.id}.png`}/>
+            </div>
+            <span className="text-3xl font-bold">{currency.name}</span>
           </div>
-          <span className="text-3xl font-bold">{currency.name}</span>
+        }
+        style={{ width: 500 }}
+      >
+        <div className="text-base space-y-2">
+          <p>Current price: <span className='font-medium'>{price} $</span></p>
+          <p>Market cap: <span className='font-medium'>{totalCapitalization}B $</span></p>
+          <p>24h volume: <span className='font-medium'>{volume24h}B $</span></p>
+          <p>Market dominance: <span className='font-medium'>{marketDominance}%</span></p>
+          <p>CMC rank: <span className='font-medium'>#{currency.cmc_rank}</span></p>
+          <p>Price change (24h): <span className={`font-medium ${priceChange24h >= 0 ? 'text-green-600' : 'text-red-600'}`}>{priceChange24h}%</span></p>
+          <p>Price change (7d): <span className={`font-medium ${priceChange7d >= 0 ? 'text-green-600' : 'text-red-600'}`}>{priceChange7d}%</span></p>
+          <p>Price change (30d): <span className={`font-medium ${priceChange30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>{priceChange30d}%</span></p>
+          <p>Circulating supply: <span className='font-medium'>{circulatingSupply}M {currency.symbol}</span></p>
+          <p>Max supply: <span className='font-medium'>{maxSupply}{maxSupply !== '∞' ? `M ${currency.symbol}` : ''}</span></p>
         </div>
-      }
-      style={{ width: 500 }}
-    >
-      <div className="text-base space-y-2">
-        <p>Current price: <span className='font-medium'>{price} $</span></p>
-        <p>Market cap: <span className='font-medium'>{totalCapitalization}B $</span></p>
-        <p>24h volume: <span className='font-medium'>{volume24h}B $</span></p>
-        <p>Market dominance: <span className='font-medium'>{marketDominance}%</span></p>
-        <p>CMC rank: <span className='font-medium'>#{currency.cmc_rank}</span></p>
-        <p>Price change (24h): <span className={`font-medium ${priceChange24h >= 0 ? 'text-green-600' : 'text-red-600'}`}>{priceChange24h}%</span></p>
-        <p>Price change (7d): <span className={`font-medium ${priceChange7d >= 0 ? 'text-green-600' : 'text-red-600'}`}>{priceChange7d}%</span></p>
-        <p>Price change (30d): <span className={`font-medium ${priceChange30d >= 0 ? 'text-green-600' : 'text-red-600'}`}>{priceChange30d}%</span></p>
-        <p>Circulating supply: <span className='font-medium'>{circulatingSupply}M {currency.symbol}</span></p>
-        <p>Max supply: <span className='font-medium'>{maxSupply}{maxSupply !== '∞' ? `M ${currency.symbol}` : ''}</span></p>
-      </div>
-    </Card>
+      </Card>
+    </div>
   )
 }
 

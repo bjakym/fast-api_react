@@ -32,9 +32,15 @@ const App = () => {
   return (
     <div className="flex">
       <LeftMenu onCurrencySelect={handleCurrencySelect} />
-      <div className="mx-auto my-auto shadow-lg rounded-lg">
-        { currencyData ? <CryptocurrencyCard currency={currencyData} /> : <Spin size="large" /> }
-      </div>
+      {currencyData ? (
+        <div className="mx-5 my-5">
+          <CryptocurrencyCard currency={currencyData} />
+        </div>
+      ) : (
+        <div className="mx-20 my-20">
+          <Spin size="large" />
+        </div>
+      )}
     </div>
   );
 };
